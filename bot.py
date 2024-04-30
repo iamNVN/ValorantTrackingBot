@@ -140,7 +140,7 @@ async def notifyNewMatch(player,match):
     has_won = ally_score > opp_score
     
     channels = db.get_player_channels(player)
-    embed = discord.Embed(title=f"{player} won a {mode} game",
+    embed = discord.Embed(title=f"{player} {'won' if has_won else 'lost'} a {mode} game",
                       description=f"**{mode} - {ally_score}:{opp_score} - {mmap}**\n{score} Score - {kills}/{deaths}/{assists} KDA",
                       color=0x32DC65 if has_won else 0xFA4453)
 
