@@ -6,7 +6,6 @@ db = mysql.connect(
   password="",
   database='discord'
 )
-
 cursor = db.cursor()
 
 def player_exists_in_db(player):
@@ -74,14 +73,14 @@ def update_last_match(player,matchid):
     db.commit()
 
 def get_watched_players():
-    sql = 'SELECT t1.player from players t1, channels t2 WHERE t2.player = t1.player GROUP BY t1.player HAVING count(t2.channel_id) > 0'
+    sql = 'SELECT t1.player,t1.region from players t1, channels t2 WHERE t2.player = t1.player GROUP BY t1.player HAVING count(t2.channel_id) > 0'
     cursor.execute(sql)
     results = cursor.fetchall()
     row_count = cursor.rowcount
     if row_count == 0:
         return None
     else:
-        return [item[0] for item in results]
+        return [(item[0],item[1]) for item in results]
     
 def get_player_channels(player):
     sql = "SELECT channel_id FROM channels WHERE player = '{}' ".format(player)

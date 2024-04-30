@@ -9,11 +9,9 @@ import asyncio
 import os
 from dotenv import load_dotenv
 
-
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-
-MY_GUILD = discord.Object(id=1234455285498646580)  # replace with your guild id
+MY_GUILD = discord.Object(id=os.getenv('GUILD_ID'))
 
 class MyClient(discord.Client):
     def __init__(self, *, intents: discord.Intents):
@@ -30,7 +28,7 @@ client = MyClient(intents=discord.Intents.default())
 async def watcher():
         players = db.get_watched_players()
         for player in players:
-            await newMatchCheck(player)
+            await newMatchCheck(player[0],player[1])
             time.sleep(5) 
 
 @client.event
@@ -64,7 +62,7 @@ async def watchadd(ctx, player: str):
         await asyncio.sleep(delay=0)
         return await ctx.followup.send(f':exclamation: `{player}` - Player is already being watched!')
     
-    last_match_id = api.player_last_match(name,tag)['meta']['id']
+    last_match_id = api.player_last_match(player,region)['meta']['id']
     db.add_to_watchlist(player,str(ctx.channel.id),region,last_match_id)
     await asyncio.sleep(delay=0)
     return await ctx.followup.send(f':white_check_mark: Added `{player}` to watchlist in {ctx.channel.mention}.')
@@ -119,8 +117,8 @@ async def watchlist(ctx):
     return await ctx.followup.send(f':white_square_button: **Watchlist for {ctx.channel.mention}:**\n\n'+'\n'.join(f"{i+1}. {item[0]}" for i, item in enumerate(watchlist)))
 
 ##===[WATCHER FUNCITONS]===##
-async def newMatchCheck(player):
-    last_match = api.player_last_match(player)
+async def newMatchCheck(player,region):
+    last_match = api.player_last_match(player,region)
     cache_last_match_id = db.get_last_matchid(player)
     if last_match['meta']['id'] != cache_last_match_id:
         db.update_last_match(player,last_match['meta']['id'])
