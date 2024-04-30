@@ -1,0 +1,4 @@
+requests
+python-dotenv
+mysql-connector-python
+discord.py
