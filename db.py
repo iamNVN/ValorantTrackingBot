@@ -1,10 +1,17 @@
 import mysql.connector as mysql
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+HOST = os.getenv('MYSQL_HOST')
+USERNAME = os.getenv('MYSQL_USER')
+PASSWORD = os.getenv('MYSQL_PASSWORD')
+DATABASE = os.getenv('MYSQL_DB')
 db = mysql.connect(
-  host="localhost",
-  user="root",
-  password="",
-  database='discord'
+  host=HOST,
+  user=USERNAME,
+  password=PASSWORD,
+  database=DATABASE
 )
 cursor = db.cursor()
 
