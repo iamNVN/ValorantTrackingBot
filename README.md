@@ -5,11 +5,15 @@ Just add a player to your watchlist, and our bot will keep you posted on their m
 
 ![Screenshot](https://github.com/iamNVN/ValorantTrackingBot/blob/main/images/Screenshot%202024-05-01%20153142.png?raw=true)
 
-
 ## Commands
 - ```/watchadd name#tag``` - Add a player to watchlist
 - ```/watchremove name#tag``` - Remove a player from watchlist
 - ```/watchlist``` - View players being tracked in a channel
+
+## Requirements
+
+1. Discord Bot Token from [here](https://discord.com/developers/)
+2. MySQL Database
 
 ## Installation
 
