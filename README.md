@@ -22,7 +22,7 @@ Just add a player to your watchlist, and our bot will keep you posted on their m
     ```bash
      pip install requirements.txt
      ```
-3. Modify variables in ```.env-config``` and then rename the file to ```.env```
+3. Modify variables in ```.env-demo``` and then rename the file to ```.env```
 4. In the project root directory, run the following code to run the bot: 
 
     ```bash
